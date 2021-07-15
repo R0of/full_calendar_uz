@@ -1,2 +1,2 @@
-# full_calendar_uz
-Oddiy Html,TailwindCss,AlpineJS da yozilgan to'liq kalendar
+# Yilnoma
+Oddiy Html,TailwindCss,AlpineJS da yozilgan to'liq yilnoma
