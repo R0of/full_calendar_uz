@@ -42,22 +42,50 @@ function genCalendar(){
 
    return {
         month_names : ['Yanvar','Fevral','Mart','Aprel','May','Iyun','Iyul','Avgust','Sentyabr','Oktyabr','Noyabr','Dekabr'],
-        day_names : ['Ya','Du','Se','Ch','Pa','Ju','Sh'],
+        day_names : ['Du','Se','Ch','Pa','Ju','Sh','Ya'],
         year : '',
         days_of_month(){
             kabisa = (yearin) => {return (yearin % 4 === 0 && yearin % 100 !== 0 && yearin % 400 !== 0) || (yearin % 100 === 0 && yearin % 400 ===0)};
             fevral = (yearin) => {return kabisa(yearin) ? 29 : 28};
             return [31, fevral(this.year), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
         },
-        hafta(sol,ma) { return new Date(sol,ma).getDay() },
+        hafta(sol,ma) { let haftakuni =  new Date(sol,ma).getDay();
+           switch (haftakuni) { // hafta kuni Dushanbadan boshlangani uchun hak)
+                   case 0:
+                   haftakuni = 6;
+                   break;
+                   case 1:
+                   haftakuni = 0;
+                   break;
+                   case 2:
+                   haftakuni = 1;
+                   break;
+                   case 3:
+                   haftakuni = 2;
+                   break;
+                   case 4:
+                   haftakuni = 3;
+                   break;
+                   case 5:
+                   haftakuni = 4;
+                   break;
+                   case 6:
+                   haftakuni = 5;
+                   break;
+               default:
+                   haftakuni =  new Date(sol,ma).getDay()
+                   break;
+             }
+             return haftakuni;
+         },
         daysgenerater() {
            let days = [];
           for (let k = 0; k < this.days_of_month().length; k++) {
            days.push([]);
            for (let i = 1; i <= this.days_of_month()[k]; i++) {
-            if(days[k].length < this.hafta(this.year,k)){
-                 days[k].push('');
+            if(days[k].length < this.hafta(this.year,k)) {
                  i-=i;
+                 days[k].push('');
                  continue; };
              days[k].push(i);
                          } }
@@ -80,3 +108,4 @@ function genCalendar(){
          }
 }
 </script>
+
